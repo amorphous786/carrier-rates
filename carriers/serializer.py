@@ -72,19 +72,29 @@ class CarrierSerializer(serializers.Serializer):
                     
             if in_network_files:
                 for in_network_file in in_network_files:
-
+                    
                     in_network_files_list.append({"description":in_network_file.get("description"),
                         "location":in_network_file.get("location"),
                         "path":"E:\\Downloads\\in_network\\",
                         "document_status":'PENDING'})
                     
             if allowed_amount_files:
-                allowed_amount_files_list.append({"description":allowed_amount_files.get("description"),
-                    "location":allowed_amount_files.get("location"),
-                    "path":"E:\\Downloads\\out_network\\",
-                    "document_status":'PENDING' 
-                    })
-            
+                # print(type("allowed_amount_files"))
+                if isinstance(allowed_amount_files,list):
+                    for allowed_amount_file in allowed_amount_files:
+                        allowed_amount_files_list.append({"description":allowed_amount_file.get("description"),
+                        "location":allowed_amount_file.get("location"),
+                        "path":"E:\\Downloads\\out_network\\",
+                        "document_status":'PENDING' 
+                        })
+                    
+                    
+                else:
+                    allowed_amount_files_list.append({"description":allowed_amount_files.get("description"),
+                        "location":allowed_amount_files.get("location"),
+                        "path":"E:\\Downloads\\out_network\\",
+                        "document_status":'PENDING' 
+                        })   
             carrier.reporting_structure.append({"reporting_plans":reporting_plans_list,
                                                                 "in_network_files":in_network_files_list,
                                                                 "allowed_amount_file":allowed_amount_files_list })
@@ -94,7 +104,6 @@ class CarrierSerializer(serializers.Serializer):
             in_network_files_list = []
             allowed_amount_files_list = []
         
-        return Response({"Status":"Data Added Successfully!"})
                         
         return carrier
             
