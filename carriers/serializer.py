@@ -31,13 +31,16 @@ class ReportingStructure(serializers.Serializer):
         model = ReportingStructure
         fields = "__all__"
     
-class CarrierSerializer(serializers.Serializer):
+class CarrierSerializer(serializers.ModelSerializer):
     
     json_file = serializers.FileField(write_only=True)
     reporting_structure = serializers.ListField(read_only=True)
+    _id = serializers.CharField()
     class Meta:
         model = Carriers
-        fields = "['json_file','name','type','reporting_structure']"
+        fields = "__all__"
+        read_only_fields = ['id','name','type',]
+        
         
         
     def create(self,validated_data):

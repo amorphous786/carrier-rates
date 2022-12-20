@@ -1,6 +1,6 @@
 from djongo import models
 from mongoengine.fields import ListField
-from django.db import models as dmodels
+
 # from django_mongoengine import Document,EmbeddedDocument,fields
 ENUM_DOWNLOAD_STATUS = (('COMPLETED','completed'),
                         ('PENDING','pending'),
@@ -9,6 +9,7 @@ ENUM_DOWNLOAD_STATUS = (('COMPLETED','completed'),
                         )
 
 class ReportingPlan(models.Model):
+
     plan_name = models.CharField(max_length=250,blank=False)
     plan_type_id = models.CharField(max_length=200,blank=False)
     plan_id = models.CharField(max_length=200,blank=False)
@@ -34,9 +35,7 @@ class Allowed_Amount_File(models.Model):
 
 class ReportingStructure(models.Model):
     
-    # reporting_plans = models.EmbeddedField(model_container=ReportingPlan)
-    # in_network_files = models.EmbeddedField(model_container=In_Network_File)
-    # allowed_amount_file = models.EmbeddedField(model_container=Allowed_Amount_File)
+    
     reporting_plans = models.ArrayField(model_container=ReportingPlan)
     in_network_files = models.ArrayField(model_container=In_Network_File)
     allowed_amount_file = models.ArrayField(model_container=Allowed_Amount_File)
@@ -45,6 +44,7 @@ class ReportingStructure(models.Model):
 
 
 class Carriers(models.Model):
+    id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=200,blank=False)
     type = models.CharField(max_length=200,blank=False)
     reporting_structure = models.ArrayField(model_container=ReportingStructure)
