@@ -35,7 +35,7 @@ class CarrierSerializer(serializers.ModelSerializer):
     
     json_file = serializers.FileField(write_only=True)
     reporting_structure = serializers.ListField(read_only=True)
-    _id = serializers.CharField()
+ 
     class Meta:
         model = Carriers
         fields = "__all__"
