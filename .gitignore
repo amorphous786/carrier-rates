@@ -1,4 +1,7 @@
 **/**/migrations/*
 **/migrations/*
 **/env
+**\**\migrations\*
+**\migrations\*
+**\env
 env
