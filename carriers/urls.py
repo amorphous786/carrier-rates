@@ -46,6 +46,6 @@ urlpatterns = [
     
     path('admin/', admin.site.urls),
     path("carriers",views.CarriersViews.as_view({'get':'list','post':'create'}),name='carriers'),
-    path("carrier_files",views.CarriersListAPI.as_view(),name='carrier_files'),
+    path("carrier/<str:carrier_name>",views.CarriersListAPI.as_view(),name="carrier_files"),
     url("docs",schema_view)
 ]

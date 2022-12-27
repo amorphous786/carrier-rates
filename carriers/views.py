@@ -21,16 +21,12 @@ class CarriersViews(viewsets.ModelViewSet):
 #         pass
 
 class CarriersListAPI(views.APIView):
-    # def get(self,request):
-    #     pass  
-    def post(self,request):
-        try:
-            carrier_name = request.data.get("carrier_name")
-            if not carrier_name:
-                return Response({"KeyError":"'carrier_name' not passed in Payload"},status=status.HTTP_400_BAD_REQUEST)
-            carriers = Carriers.objects.filter(name=carrier_name)
-            serializer = CarrierSerializer(carriers,many=True)
-            return Response(serializer.data,status=status.HTTP_200_OK)
-        except Exception as e:
-            
-            return Response({"Exception":"Error Occurred"},status=status.HTTP_400_BAD_REQUEST)
+    def get(self,request,*args, **kwargs):
+        carrier_name = kwargs.get('carrier_name')
+        if not carrier_name:
+            return Response({"Error":"Carrier Name not Passed"},status=status.HTTP_400_BAD_REQUEST)
+        carriers = Carriers.objects.filter(name=carrier_name)
+        serializer = CarrierSerializer(carriers,many=True)
+        return Response(serializer.data)
+    
+    
